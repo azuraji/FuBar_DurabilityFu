@@ -2,7 +2,6 @@
 DurabilityFu = AceLibrary("AceAddon-2.0"):new("FuBarPlugin-2.0", "AceDB-2.0", "AceEvent-2.0", "AceHook-2.1", "AceConsole-2.0")
 local DurabilityFu = DurabilityFu
 
-DurabilityFu.version = "3.00." .. string.sub("$Revision: 200 $", 12, -3)
 DurabilityFu.date = string.sub("$Date: 2022-11-16 23:20:00 +0100 (Wed, 16 Nov 2022) $", 8, 17)
 DurabilityFu.hasIcon = true
 DurabilityFu.canHideText = true
@@ -421,6 +420,7 @@ do
 				max = max + item[MAX]
 			end
 		end
+
 		cat = Tablet:AddCategory(
 			"columns", 2,
 			"text", L["Total"],
@@ -429,7 +429,8 @@ do
 			"child_textB", 0,
 			"child_text2R", 1,
 			"child_text2G", 1,
-			"child_text2B", 1
+			"child_text2B", 1,
+			'hideBlankLine', cost == 0
 		)
 		local r, g, b = Crayon:GetThresholdColor(value / max)
 		cat:AddLine(

@@ -4,7 +4,7 @@
 ## Notes-ruRU: Следит за прочностью вашего снаряжения и показывает диалог починки у торговца, умеющего чинить.
 ## Notes-zhTW: 持續追蹤裝備耐久度，並在可修裝NPC處顯示是否要自動修裝的對話框。
 ## Notes-esES: Vigila la durabilidad y muestra una ventana para reparar cuando vas a un vendedor.
-## Version: 2.14
+## Version: 10.0.2.1
 ## X-eMail: ckknight AT gmail DOT com
 ## X-Donate: PayPal:ckknight AT gmail DOT com
 ## X-Website: http://www.wowace.com/
@@ -12,10 +12,6 @@
 ## X-Website: http://ckknight.wowinterface.com/
 ## OptionalDeps: FuBar, Ace2, Deformat, DewdropLib, GratuityLib, FuBarPlugin-2.0, TabletLib, CrayonLib
 ## SavedVariables: DurabilityFuDB
-## X-Curse-Packaged-Version: r127
-## X-Curse-Project-Name: FuBar_DurabilityFu
-## X-Curse-Project-ID: fubar_durabilityfu
-## X-Curse-Repository-ID: wow/fubar_durabilityfu/mainline
 
 embeds.xml
 

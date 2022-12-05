@@ -579,6 +579,12 @@ function FuBarPlugin:Hide(check)
 	if Dewdrop:IsOpen(self.frame) or (self.minimapFrame and Dewdrop:IsOpen(self.minimapFrame)) then
 		Dewdrop:Close()
 	end
+
+	if type(self.OnHide) == "function" then
+		if not self:IsDisabled() then
+			self:OnHide()
+		end
+	end
 end
 
 function FuBarPlugin:SetIcon(path)
@@ -1161,17 +1167,21 @@ function FuBarPlugin:OpenMenu(frame)
 				end
 			end,
 			'point', function(frame)
+				local pluginSide = self.panel and self.panel:GetPluginSide(self)
+
 				local x, y = frame:GetCenter()
-				local leftRight
-				if x < GetScreenWidth() / 2 then
-					leftRight = "LEFT"
+				local horizontalPosition
+				if (pluginSide == "CENTER") then
+					horizontalPosition = ""
+				elseif (x < GetScreenWidth() / 2) then
+					horizontalPosition = "LEFT"
 				else
-					leftRight = "RIGHT"
+					horizontalPosition = "RIGHT"
 				end
 				if y < GetScreenHeight() / 2 then
-					return "BOTTOM" .. leftRight, "TOP" .. leftRight
+					return "BOTTOM" .. horizontalPosition, "TOP" .. horizontalPosition
 				else
-					return "TOP" .. leftRight, "BOTTOM" .. leftRight
+					return "TOP" .. horizontalPosition, "BOTTOM" .. horizontalPosition
 				end
 			end,
 			'dontHook', true
@@ -1217,7 +1227,7 @@ function FuBarPlugin.OnEmbedInitialize(FuBarPlugin, self)
 			local text = frame:CreateFontString(name .. "Text", "ARTWORK")
 			text:SetWidth(134)
 			text:SetHeight(24)
-			text:SetPoint("LEFT", icon, "RIGHT", 0, 1)
+			text:SetPoint("LEFT", icon, "RIGHT", 0, 0)
 			text:SetFontObject(GameFontNormal)
 		end
 		self.frame = frame
