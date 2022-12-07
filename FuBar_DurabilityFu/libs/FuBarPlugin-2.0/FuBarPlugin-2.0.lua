@@ -419,16 +419,6 @@ function FuBarPlugin:RegisterTablet()
 				end
 			end,
 			'menu', self.OnMenuRequest and function(level, value, valueN_1, valueN_2, valueN_3, valueN_4)
-				-- if level == 1 then
-				-- 	local name = tostring(self)
-				-- 	if not name:find('^table:') then
-				-- 		name = name:gsub("|c%x%x%x%x%x%x%x%x(.-)|r", "%1")
-				-- 		Dewdrop:AddLine(
-				-- 			'text', name,
-				-- 			'isTitle', true
-				-- 		)
-				-- 	end
-				-- end
 				if type(self.OnMenuRequest) == "function" then
 					self:OnMenuRequest(level, value, true, valueN_1, valueN_2, valueN_3, valueN_4)
 				elseif type(self.OnMenuRequest) == "table" then
@@ -1120,11 +1110,13 @@ function FuBarPlugin:OpenMenu(frame)
 		Tablet:Close()
 	end
 
-	if not Dewdrop:IsRegistered(self:GetFrame()) then
-		if type(self.OnMenuRequest) == "table" and (not self.OnMenuRequest.handler or self.OnMenuRequest.handler == self) and self.OnMenuRequest.type == "group" then
-			Dewdrop:InjectAceOptionsTable(self, self.OnMenuRequest)
-			if self.OnMenuRequest.args and CheckFuBar() and not self.independentProfile then
-				self.OnMenuRequest.args.profile = nil
+	if not Dewdrop:IsRegistered(self:GetFrame()) or self.refreshMenu then
+		if not self.refreshMenu then
+			if type(self.OnMenuRequest) == "table" and (not self.OnMenuRequest.handler or self.OnMenuRequest.handler == self) and self.OnMenuRequest.type == "group" then
+				Dewdrop:InjectAceOptionsTable(self, self.OnMenuRequest)
+				if self.OnMenuRequest.args and CheckFuBar() and not self.independentProfile then
+					self.OnMenuRequest.args.profile = nil
+				end
 			end
 		end
 
@@ -1186,7 +1178,10 @@ function FuBarPlugin:OpenMenu(frame)
 			end,
 			'dontHook', true
 		)
+
+		self.refreshMenu = nil
 	end
+
 	if frame == self:GetFrame() then
 		Dewdrop:Open(self:GetFrame())
 	elseif frame ~= UIParent then
